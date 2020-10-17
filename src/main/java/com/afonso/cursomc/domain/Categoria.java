@@ -1,20 +1,29 @@
 package com.afonso.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
-public class Categoria implements Serializable{
+public class Categoria implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id = 0;
     private String nome = "";
+
+    @JsonManagedReference
+    @ManyToMany(mappedBy = "vCategoria")
+    private List<Produto> vProduto = new ArrayList<>();
 
     public Categoria() {
     }
@@ -23,7 +32,6 @@ public class Categoria implements Serializable{
         super();
         this.id = id;
         this.nome = nome;
-
     }
 
     public Integer getId() {
@@ -40,6 +48,14 @@ public class Categoria implements Serializable{
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public List<Produto> getvProduto() {
+        return vProduto;
+    }
+
+    public void setvProduto(List<Produto> vProduto) {
+        this.vProduto = vProduto;
     }
 
     @Override
