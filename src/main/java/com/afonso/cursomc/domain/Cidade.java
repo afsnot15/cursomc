@@ -1,5 +1,6 @@
 package com.afonso.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +16,7 @@ public class Cidade {
     private Integer id = 0;
     private String nome = "";
     
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name="id_estado")
     private Estado oEstado;

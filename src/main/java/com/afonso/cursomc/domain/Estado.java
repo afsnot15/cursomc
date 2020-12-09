@@ -1,5 +1,6 @@
 package com.afonso.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -16,7 +17,8 @@ public class Estado {
     private Integer id = 0;
     private String nome = "";
     
-   @OneToMany(mappedBy = "oEstado")
+   @JsonBackReference
+    @OneToMany(mappedBy = "oEstado")
     private List<Cidade> cidades = new ArrayList();
     
     public Estado() {
