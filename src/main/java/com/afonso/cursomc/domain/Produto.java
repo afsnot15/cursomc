@@ -3,8 +3,10 @@ package com.afonso.cursomc.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,6 +33,9 @@ public class Produto implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "id_categoria"))
     private List<Categoria> vCategoria = new ArrayList<>();
 
+    
+    private Set<ItemPedido> itens = new HashSet<>();
+    
     public Produto() {
     }
 
@@ -40,7 +45,23 @@ public class Produto implements Serializable {
         this.descricao = descricao;
         this.preco = preco;
     }
+    
+    public List<Pedido> getPedidos(){
+        List<Pedido> lista = new ArrayList<>();
+        for (ItemPedido iten : itens) {
+            lista.add(iten.getPedido());
+        }
+        return lista;
+    }
 
+    public Set<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(Set<ItemPedido> itens) {
+        this.itens = itens;
+    }
+    
     public Integer getId() {
         return id;
     }
