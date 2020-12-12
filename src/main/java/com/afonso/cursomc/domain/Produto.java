@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Produto implements Serializable {
@@ -34,6 +35,7 @@ public class Produto implements Serializable {
     private List<Categoria> vCategoria = new ArrayList<>();
 
     
+    @OneToMany(mappedBy = "id.produto")
     private Set<ItemPedido> itens = new HashSet<>();
     
     public Produto() {

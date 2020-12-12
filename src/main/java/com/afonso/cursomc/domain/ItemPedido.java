@@ -1,13 +1,18 @@
 package com.afonso.cursomc.domain;
 
 import java.util.Objects;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
 
 /**
  *
  * @author Afonso
  */
+
+@Entity
 public class ItemPedido {
 
+    @EmbeddedId
     private ItemPedidoPK id = new ItemPedidoPK();
 
     private Double desconto;
