@@ -1,6 +1,6 @@
 package com.afonso.cursomc.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -11,16 +11,16 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Estado {
-    
+
     @Id
     @GeneratedValue
     private Integer id = 0;
     private String nome = "";
-    
-   @JsonBackReference
+
+    @JsonIgnore
     @OneToMany(mappedBy = "oEstado")
     private List<Cidade> cidades = new ArrayList();
-    
+
     public Estado() {
     }
 

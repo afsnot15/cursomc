@@ -1,8 +1,8 @@
 package com.afonso.cursomc.services;
 
-import com.afonso.cursomc.services.exception.ObjectNotFoundException;
 import com.afonso.cursomc.domain.Cliente;
 import com.afonso.cursomc.repositories.ClienteRepository;
+import com.afonso.cursomc.services.exception.ObjectNotFoundException;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

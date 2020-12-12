@@ -1,8 +1,7 @@
 package com.afonso.cursomc.domain;
 
 import com.afonso.cursomc.domain.enums.TipoCliente;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -21,25 +20,24 @@ import javax.persistence.OneToMany;
 public class Cliente implements Serializable {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
     private String email;
     private String cpfCnpj;
     private Integer tipoCliente;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy="cliente")
+    @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
 
     @ElementCollection
-    @CollectionTable(name="TELEFONE")
+    @CollectionTable(name = "TELEFONE")
     private Set<String> telefones = new HashSet<>();
 
-    @JsonBackReference
-    @OneToMany(mappedBy="cliente")
+    @JsonIgnore
+    @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<>();
-    
+
     public Cliente() {
     }
 
