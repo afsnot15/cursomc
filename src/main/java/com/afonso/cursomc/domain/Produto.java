@@ -1,6 +1,7 @@
 package com.afonso.cursomc.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -30,14 +31,14 @@ public class Produto implements Serializable {
     @JsonBackReference
     @ManyToMany
     @JoinTable(name = "PRODUTO_CATEGORIA",
-            joinColumns = @JoinColumn(name = "id_produto"), 
+            joinColumns = @JoinColumn(name = "id_produto"),
             inverseJoinColumns = @JoinColumn(name = "id_categoria"))
     private List<Categoria> vCategoria = new ArrayList<>();
 
-    
+    @JsonIgnore
     @OneToMany(mappedBy = "id.produto")
     private Set<ItemPedido> itens = new HashSet<>();
-    
+
     public Produto() {
     }
 
@@ -47,8 +48,9 @@ public class Produto implements Serializable {
         this.descricao = descricao;
         this.preco = preco;
     }
-    
-    public List<Pedido> getPedidos(){
+
+    @JsonIgnore
+    public List<Pedido> getPedidos() {
         List<Pedido> lista = new ArrayList<>();
         for (ItemPedido iten : itens) {
             lista.add(iten.getPedido());
@@ -63,7 +65,7 @@ public class Produto implements Serializable {
     public void setItens(Set<ItemPedido> itens) {
         this.itens = itens;
     }
-    
+
     public Integer getId() {
         return id;
     }

@@ -1,6 +1,7 @@
 package com.afonso.cursomc.domain;
 
 import com.afonso.cursomc.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Entity;
@@ -11,22 +12,21 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
-
 /**
  *
  * @author Afonso
  */
-
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
-public abstract class Pagamento implements Serializable{
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Pagamento implements Serializable {
 
     @Id
     private Integer id;
     private Integer estado;
 
+    @JsonBackReference
     @OneToOne
-    @JoinColumn(name="id_pedido")
+    @JoinColumn(name = "id_pedido")
     @MapsId
     private Pedido pedido;
 
@@ -88,6 +88,4 @@ public abstract class Pagamento implements Serializable{
         return true;
     }
 
-    
-    
 }

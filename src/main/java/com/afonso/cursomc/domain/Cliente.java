@@ -1,6 +1,7 @@
 package com.afonso.cursomc.domain;
 
 import com.afonso.cursomc.domain.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class Cliente implements Serializable {
     @CollectionTable(name="TELEFONE")
     private Set<String> telefones = new HashSet<>();
 
+    @JsonBackReference
     @OneToMany(mappedBy="cliente")
     private List<Pedido> pedidos = new ArrayList<>();
     

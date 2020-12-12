@@ -1,5 +1,7 @@
 package com.afonso.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -24,20 +26,24 @@ public class Pedido implements Serializable {
     @Id
     @GeneratedValue
     private Integer id;
+   
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private Date instante;
 
-    @OneToOne(cascade=CascadeType.ALL, mappedBy = "pedido")
+    @JsonManagedReference
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
     private Pagamento pagamento;
-  
+
+    @JsonManagedReference
     @ManyToOne
-    @JoinColumn(name="id_cliente")
+    @JoinColumn(name = "id_cliente")
     private Cliente cliente;
-    
+
     @ManyToOne
-    @JoinColumn(name="id_endereco_entrega")
+    @JoinColumn(name = "id_endereco_entrega")
     private Endereco enderecoEntrega;
-    
-   @OneToMany(mappedBy = "id.pedido")
+
+    @OneToMany(mappedBy = "id.pedido")
     private Set<ItemPedido> itens = new HashSet<>();
 
     public Pedido() {
