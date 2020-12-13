@@ -102,6 +102,36 @@ public class CursomcApplication implements CommandLineRunner {
 
         vCategoria.add(oCategoria2);
 
+        Categoria oCategoria3 = new Categoria();
+        oCategoria3.setId(null);
+        oCategoria3.setNome("Cama mesa e banho");
+
+        vCategoria.add(oCategoria3);
+
+        Categoria oCategoria4 = new Categoria();
+        oCategoria4.setId(null);
+        oCategoria4.setNome("Eletronicos");
+
+        vCategoria.add(oCategoria4);
+
+        Categoria oCategoria5 = new Categoria();
+        oCategoria5.setId(null);
+        oCategoria5.setNome("Jardinagem");
+
+        vCategoria.add(oCategoria5);
+
+        Categoria oCategoria6 = new Categoria();
+        oCategoria6.setId(null);
+        oCategoria6.setNome("Decoracao");
+
+        vCategoria.add(oCategoria6);
+
+        Categoria oCategoria7 = new Categoria();
+        oCategoria7.setId(null);
+        oCategoria7.setNome("Perfumaria");
+
+        vCategoria.add(oCategoria7);
+
         oCategoria1.getvProduto().addAll(vProduto);
         oCategoria2.getvProduto().add(oProduto2);
 
