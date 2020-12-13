@@ -17,20 +17,29 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 public class CategoriaResource {
 
     @Autowired
-    private CategoriaService sCategoria;
+    private CategoriaService service;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> find(@PathVariable Integer id) {
-        Categoria oCategoria = sCategoria.buscar(id);
+    public ResponseEntity<Categoria> find(@PathVariable Integer id) {
+        Categoria oCategoria = service.find(id);
         return ResponseEntity.ok().body(oCategoria);
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@RequestBody Categoria oCategoria) {
-        oCategoria = sCategoria.insert(oCategoria);
+        oCategoria = service.insert(oCategoria);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(oCategoria.getId()).toUri();
 
         return ResponseEntity.created(uri).build();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Void> update(@RequestBody Categoria oCategoria, @PathVariable Integer id) {
+        oCategoria.setId(id);
+        oCategoria = service.update(oCategoria);
+        
+        return ResponseEntity.noContent().build();
+
     }
 }
