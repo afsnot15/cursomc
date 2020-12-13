@@ -4,6 +4,7 @@ import com.afonso.cursomc.domain.Categoria;
 import com.afonso.cursomc.repositories.CategoriaRepository;
 import com.afonso.cursomc.services.exception.DataIntegratyException;
 import com.afonso.cursomc.services.exception.ObjectNotFoundException;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -38,5 +39,9 @@ public class CategoriaService {
         } catch (DataIntegrityViolationException e) {
             throw new DataIntegratyException("Não é possível excluir uma categoria que contém produtos");
         }
+    }
+
+    public List<Categoria> findAll() {
+        return rCategoria.findAll();
     }
 }
