@@ -1,6 +1,7 @@
 package com.afonso.cursomc.services;
 
 import com.afonso.cursomc.domain.Categoria;
+import com.afonso.cursomc.dto.CategoriaDTO;
 import com.afonso.cursomc.repositories.CategoriaRepository;
 import com.afonso.cursomc.services.exception.DataIntegratyException;
 import com.afonso.cursomc.services.exception.ObjectNotFoundException;
@@ -52,4 +53,8 @@ public class CategoriaService {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
         return rCategoria.findAll(pageRequest);
     }
+    
+    public Categoria fromDTO(CategoriaDTO oCategoriaDTO) {
+		return new Categoria(oCategoriaDTO.getId(), oCategoriaDTO.getNome());
+	}
 }

@@ -2,23 +2,26 @@ package com.afonso.cursomc.resources.exception;
 
 import java.io.Serializable;
 
-public class StandardError implements Serializable{
-    
+public class StandardError implements Serializable {
+
     private Integer status = -1;
     private String msg = "";
     private Long timeStamp = -1L;
+    private String path;
+    private String error;
 
     public StandardError() {
     }
 
-    public StandardError(Integer status, String msg, Long timeStamp) {
+    public StandardError(Integer status, String msg, Long timeStamp, String error, String path) {
         super();
         this.status = status;
         this.msg = msg;
         this.timeStamp = timeStamp;
+        this.path = path;
+        this.error = error;
     }
-    
-    
+
     public Integer getStatus() {
         return status;
     }

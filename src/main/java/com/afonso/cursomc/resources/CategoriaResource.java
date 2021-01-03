@@ -6,6 +6,7 @@ import com.afonso.cursomc.services.CategoriaService;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,8 @@ public class CategoriaResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@RequestBody Categoria oCategoria) {
+    public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO oCategoriaDTO) {
+        Categoria oCategoria = service.fromDTO(oCategoriaDTO);
         oCategoria = service.insert(oCategoria);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(oCategoria.getId()).toUri();
@@ -40,7 +42,8 @@ public class CategoriaResource {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@RequestBody Categoria oCategoria, @PathVariable Integer id) {
+    public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO oCategoriaDTO, @PathVariable Integer id) {
+        Categoria oCategoria = service.fromDTO(oCategoriaDTO);
         oCategoria.setId(id);
         oCategoria = service.update(oCategoria);
 
