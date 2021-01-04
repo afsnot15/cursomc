@@ -2,7 +2,9 @@ package com.afonso.cursomc.resources;
 
 import com.afonso.cursomc.domain.Cliente;
 import com.afonso.cursomc.dto.ClienteDTO;
+import com.afonso.cursomc.dto.ClienteNewDTO;
 import com.afonso.cursomc.services.ClienteService;
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping(value = "/clientes")
@@ -23,12 +26,21 @@ public class ClienteResource {
     @Autowired
     private ClienteService service;
 
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO oClienteDTO) {
+        Cliente oCliente = service.fromDTO(oClienteDTO);
+        oCliente = service.insert(oCliente);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(oCliente.getId()).toUri();
+        return ResponseEntity.created(uri).build();
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Cliente> find(@PathVariable Integer id) {
         Cliente oCliente = service.find(id);
         return ResponseEntity.ok().body(oCliente);
     }
-    
+
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO oClienteDTO, @PathVariable Integer id) {
         Cliente oCliente = service.fromDTO(oClienteDTO);

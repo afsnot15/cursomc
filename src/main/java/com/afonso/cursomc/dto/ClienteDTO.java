@@ -10,7 +10,6 @@ import org.hibernate.validator.constraints.Length;
  *
  * @author Afonso
  */
-
 public class ClienteDTO implements Serializable {
 
     private Integer id;
