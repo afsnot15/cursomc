@@ -1,6 +1,7 @@
 package com.afonso.cursomc.dto;
 
 import com.afonso.cursomc.domain.Cliente;
+import com.afonso.cursomc.services.exception.validation.ClienteUpdate;
 import java.io.Serializable;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -10,6 +11,7 @@ import org.hibernate.validator.constraints.Length;
  *
  * @author Afonso
  */
+@ClienteUpdate
 public class ClienteDTO implements Serializable {
 
     private Integer id;

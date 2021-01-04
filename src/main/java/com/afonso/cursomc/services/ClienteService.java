@@ -1,8 +1,13 @@
 package com.afonso.cursomc.services;
 
+import com.afonso.cursomc.domain.Cidade;
 import com.afonso.cursomc.domain.Cliente;
+import com.afonso.cursomc.domain.Endereco;
+import com.afonso.cursomc.domain.enums.TipoCliente;
 import com.afonso.cursomc.dto.ClienteDTO;
+import com.afonso.cursomc.dto.ClienteNewDTO;
 import com.afonso.cursomc.repositories.ClienteRepository;
+import com.afonso.cursomc.repositories.EnderecoRepository;
 import com.afonso.cursomc.services.exception.DataIntegratyException;
 import com.afonso.cursomc.services.exception.ObjectNotFoundException;
 import java.util.List;
@@ -14,11 +19,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.afonso.cursomc.domain.Endereco;
-import com.afonso.cursomc.domain.Cidade;
-import com.afonso.cursomc.domain.enums.TipoCliente;
-import com.afonso.cursomc.dto.ClienteNewDTO;
-import com.afonso.cursomc.repositories.EnderecoRepository;
 
 @Service
 public class ClienteService {
