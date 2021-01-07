@@ -52,7 +52,15 @@ public class Pedido implements Serializable {
         this.cliente = cliente;
         this.enderecoEntrega = enderecoEntrega;
     }
-
+    
+    public double getValorTotal(){
+        double soma = 0;
+        for (ItemPedido oItemPedido : itens) {
+            soma += oItemPedido.getSubtotal();
+        }
+        return soma;
+    }
+    
     public Set<ItemPedido> getItens() {
         return itens;
     }

@@ -32,6 +32,10 @@ public class ItemPedido {
         this.preco = preco;
     }
 
+    public double getSubtotal() {
+        return (preco - desconto) * quantidade;
+    }
+
     @JsonIgnore
     public Pedido getPedido() {
         return id.getPedido();
