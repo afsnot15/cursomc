@@ -2,8 +2,8 @@ package com.afonso.cursomc.services;
 
 import com.afonso.cursomc.domain.Categoria;
 import com.afonso.cursomc.domain.Produto;
-import com.afonso.cursomc.repositories.ProdutoRepository;
 import com.afonso.cursomc.repositories.CategoriaRepository;
+import com.afonso.cursomc.repositories.ProdutoRepository;
 import com.afonso.cursomc.services.exception.ObjectNotFoundException;
 import java.util.List;
 import java.util.Optional;

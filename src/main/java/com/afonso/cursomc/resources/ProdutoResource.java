@@ -2,8 +2,8 @@ package com.afonso.cursomc.resources;
 
 import com.afonso.cursomc.domain.Produto;
 import com.afonso.cursomc.dto.ProdutoDTO;
-import com.afonso.cursomc.services.ProdutoService;
 import com.afonso.cursomc.resources.utils.URL;
+import com.afonso.cursomc.services.ProdutoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
