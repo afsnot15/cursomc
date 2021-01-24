@@ -25,15 +25,18 @@ public class PedidoService {
 
     @Autowired
     private PagamentoRepository oPagamentoRepository;
-    
+
     @Autowired
     private ProdutoService oProdutoService;
-    
+
     @Autowired
     private ItemPedidoRepository oItemPedidoRepository;
-    
-     @Autowired
+
+    @Autowired
     private ClienteService oClienteService;
+
+    @Autowired
+    private EmailService oEmailService;
 
     public Pedido find(Integer id) {
         Optional<Pedido> oPedido = repository.findById(id);
@@ -53,19 +56,19 @@ public class PedidoService {
             PagamentoComBoleto oPagameno = (PagamentoComBoleto) pPedido.getPagamento();
             oBoletoService.preencherPagamentoComBoleto(oPagameno, pPedido.getInstante());
         }
-        pPedido =  repository.save(pPedido);
+        pPedido = repository.save(pPedido);
         oPagamentoRepository.save(pPedido.getPagamento());
-        
+
         for (ItemPedido oItem : pPedido.getItens()) {
             oItem.setDesconto(0.0);
             oItem.setProduto(oProdutoService.find(oItem.getProduto().getId()));
             oItem.setPreco(oItem.getProduto().getPreco());
             oItem.setPedido(pPedido);
         }
-        
+
         oItemPedidoRepository.saveAll(pPedido.getItens());
-        
-        System.out.println(pPedido);
+
+        oEmailService.sendOrderConfirmationEmail(pPedido);
         return pPedido;
     }
 }
