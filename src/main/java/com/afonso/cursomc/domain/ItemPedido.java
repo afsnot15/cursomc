@@ -40,6 +40,14 @@ public class ItemPedido {
     public Pedido getPedido() {
         return id.getPedido();
     }
+    
+    public void setPedido(Pedido pPedido) {
+        id.setPedido(pPedido);
+    }
+
+    public void setProduto(Produto pProduto) {
+        id.setProduto(pProduto);
+    }
 
     public Produto getProduto() {
         return id.getProduto();
