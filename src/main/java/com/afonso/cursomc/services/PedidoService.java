@@ -7,12 +7,12 @@ import com.afonso.cursomc.domain.enums.EstadoPagamento;
 import com.afonso.cursomc.repositories.ItemPedidoRepository;
 import com.afonso.cursomc.repositories.PagamentoRepository;
 import com.afonso.cursomc.repositories.PedidoRepository;
-import com.afonso.cursomc.repositories.ProdutoRepository;
 import com.afonso.cursomc.services.exception.ObjectNotFoundException;
 import java.util.Date;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PedidoService {
@@ -27,10 +27,13 @@ public class PedidoService {
     private PagamentoRepository oPagamentoRepository;
     
     @Autowired
-    private ProdutoRepository oProdutoRepository;
+    private ProdutoService oProdutoService;
     
     @Autowired
     private ItemPedidoRepository oItemPedidoRepository;
+    
+     @Autowired
+    private ClienteService oClienteService;
 
     public Pedido find(Integer id) {
         Optional<Pedido> oPedido = repository.findById(id);
@@ -38,9 +41,11 @@ public class PedidoService {
                 "Objeto não encontrado! Id: " + id + ", Tipo: " + Pedido.class.getName()));
     }
 
+    @Transactional
     public Pedido insert(Pedido pPedido) {
         pPedido.setId(null);
         pPedido.setInstante(new Date());
+        pPedido.setCliente(oClienteService.find(pPedido.getCliente().getId()));
         pPedido.getPagamento().setEstado(EstadoPagamento.PENDENTE);
         pPedido.getPagamento().setPedido(pPedido);
 
@@ -53,11 +58,14 @@ public class PedidoService {
         
         for (ItemPedido oItem : pPedido.getItens()) {
             oItem.setDesconto(0.0);
-            oItem.setPreco(oProdutoRepository.findById(oItem.getProduto().getId()).get().getPreco());
+            oItem.setProduto(oProdutoService.find(oItem.getProduto().getId()));
+            oItem.setPreco(oItem.getProduto().getPreco());
             oItem.setPedido(pPedido);
         }
         
         oItemPedidoRepository.saveAll(pPedido.getItens());
+        
+        System.out.println(pPedido);
         return pPedido;
     }
 }

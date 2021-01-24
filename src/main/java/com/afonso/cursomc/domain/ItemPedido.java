@@ -1,6 +1,8 @@
 package com.afonso.cursomc.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Objects;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -108,5 +110,20 @@ public class ItemPedido {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        StringBuilder builder = new StringBuilder();
+        builder.append(getProduto().getDescricao());
+        builder.append(", Quantidade: ");
+        builder.append(getQuantidade());
+        builder.append(", Preço Unitário:");
+        builder.append(nf.format(getPreco()));
+        builder.append(", Subtotal: ");
+        builder.append(nf.format(getSubtotal()));
+        builder.append("\n");
+        return builder.toString();
     }
 }
