@@ -1,6 +1,7 @@
 package com.afonso.cursomc.services;
 
 import com.afonso.cursomc.domain.Pedido;
+import javax.mail.internet.MimeMessage;
 import org.springframework.mail.SimpleMailMessage;
 
 /**
@@ -12,5 +13,9 @@ public interface EmailService {
     void sendOrderConfirmationEmail(Pedido pPedido);
 
     void sendEmail(SimpleMailMessage pMessage);
+    
+    void sendOrderConfirmationHtmlEmail(Pedido obj);
+
+    void sendHtmlEmail(MimeMessage msg);
     
 }
