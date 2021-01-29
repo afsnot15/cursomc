@@ -33,7 +33,7 @@
                     <td th:text="${item.quantidade}">quantidade</td>
                     <td th:text="${#numbers.formatDecimal(item.preco, 0, 'POINT', 2,
                         'COMMA')}">preco</td>
-                    <td th:text="${#numbers.formatDecimal(item.subTotal, 0, 'POINT', 2,
+                    <td th:text="${#numbers.formatDecimal(item.subtotal, 0, 'POINT', 2,
                         'COMMA')}">subTotal</td>
                 </tr>
             </table>
