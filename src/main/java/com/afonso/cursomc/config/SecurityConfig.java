@@ -31,7 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] PLUBLIC_MATCHES_GET = {
         "/produtos/**",
-        "/categorias/**"
+        "/categorias/**",
+        "/clientes/**"
     };
 
     @Override
