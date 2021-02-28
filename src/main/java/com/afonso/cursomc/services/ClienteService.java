@@ -3,11 +3,14 @@ package com.afonso.cursomc.services;
 import com.afonso.cursomc.domain.Cidade;
 import com.afonso.cursomc.domain.Cliente;
 import com.afonso.cursomc.domain.Endereco;
+import com.afonso.cursomc.domain.enums.Perfil;
 import com.afonso.cursomc.domain.enums.TipoCliente;
 import com.afonso.cursomc.dto.ClienteDTO;
 import com.afonso.cursomc.dto.ClienteNewDTO;
 import com.afonso.cursomc.repositories.ClienteRepository;
 import com.afonso.cursomc.repositories.EnderecoRepository;
+import com.afonso.cursomc.security.UserSS;
+import com.afonso.cursomc.services.exception.AuthorizationException;
 import com.afonso.cursomc.services.exception.DataIntegratyException;
 import com.afonso.cursomc.services.exception.ObjectNotFoundException;
 import java.util.List;
@@ -33,10 +36,16 @@ public class ClienteService {
     @Autowired
     private BCryptPasswordEncoder enconder;
 
-    public Cliente find(Integer id) {
-        Optional<Cliente> oCliente = clienteRepository.findById(id);
+    public Cliente find(Integer pId) {
+        UserSS oUser = UserService.authenticated();
+
+        if(oUser == null || !oUser.hasRole(Perfil.ADMIN) && !pId.equals(oUser.getId())){
+            throw new AuthorizationException("Acesso negado!");
+        }
+        
+        Optional<Cliente> oCliente = clienteRepository.findById(pId);
         return oCliente.orElseThrow(() -> new ObjectNotFoundException(
-                "Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
+                "Objeto não encontrado! Id: " + pId + ", Tipo: " + Cliente.class.getName()));
     }
 
     @Transactional
