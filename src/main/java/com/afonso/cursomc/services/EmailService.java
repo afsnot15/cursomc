@@ -1,5 +1,6 @@
 package com.afonso.cursomc.services;
 
+import com.afonso.cursomc.domain.Cliente;
 import com.afonso.cursomc.domain.Pedido;
 import javax.mail.internet.MimeMessage;
 import org.springframework.mail.SimpleMailMessage;
@@ -18,4 +19,5 @@ public interface EmailService {
 
     void sendHtmlEmail(MimeMessage msg);
     
+     void sendNewPasswordEmail(Cliente pCliente, String pNewPass);
 }
