@@ -125,6 +125,7 @@ public class DBService {
 
         Cliente oCli1 = new Cliente(null, "Maria Silva", "afsnot15@gmail.com", "36565656", TipoCliente.PESSOAFISICA, enconder.encode("123"));
         oCli1.getTelefones().addAll(Arrays.asList("33336", "555511"));
+        oCli1.addPerfil(Perfil.CLIENTE);
         
         Cliente oCli2 = new Cliente(null, "Ana Costa", "afsnot15@hotmail.com", "58912951050", TipoCliente.PESSOAFISICA, enconder.encode("123"));
         oCli1.getTelefones().addAll(Arrays.asList("33336", "555511"));
