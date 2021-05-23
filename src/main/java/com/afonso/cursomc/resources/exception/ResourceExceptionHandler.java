@@ -52,7 +52,7 @@ public class ResourceExceptionHandler {
     @ExceptionHandler(FileException.class)
     public ResponseEntity<StandardError> file(FileException e, HttpServletRequest request) {
 
-        StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), "Erro de arquivo!", System.currentTimeMillis(), e.getMessage(), request.getRequestURI());
+        StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis(), e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
 
