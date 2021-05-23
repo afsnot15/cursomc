@@ -13,6 +13,7 @@ import com.afonso.cursomc.security.UserSS;
 import com.afonso.cursomc.services.exception.AuthorizationException;
 import com.afonso.cursomc.services.exception.DataIntegratyException;
 import com.afonso.cursomc.services.exception.ObjectNotFoundException;
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ClienteService {
@@ -35,6 +37,9 @@ public class ClienteService {
     
     @Autowired
     private BCryptPasswordEncoder enconder;
+    
+    @Autowired
+    private S3Service s3Service;
 
     public Cliente find(Integer pId) {
         UserSS oUser = UserService.authenticated();
@@ -106,5 +111,9 @@ public class ClienteService {
     private void updateData(Cliente oClienteUpdate, Cliente oCliente) {
         oClienteUpdate.setNome(oCliente.getNome());
         oClienteUpdate.setEmail(oCliente.getEmail());
+    }
+    
+    public URI uploadProfilePicture(MultipartFile multipartFile){
+        return s3Service.uploadFile(multipartFile);
     }
 }
