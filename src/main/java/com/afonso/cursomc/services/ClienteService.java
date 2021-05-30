@@ -50,6 +50,9 @@ public class ClienteService {
     @Value("${img.prefix.client.profile}")
     private String prefix;
 
+    @Value("${img.profile.size}")
+    private Integer size;
+
     public Cliente find(Integer pId) {
         UserSS oUser = UserService.authenticated();
 
@@ -88,6 +91,21 @@ public class ClienteService {
 
     public List<Cliente> findAll() {
         return clienteRepository.findAll();
+    }
+
+    public Cliente findByEmail(String email) {
+        UserSS user = UserService.authenticated();
+        if (user == null || !user.hasRole(Perfil.ADMIN) && !email.equals(user.getUsername())) {
+            throw new AuthorizationException("Acesso negado");
+        }
+
+        Cliente oCliente = clienteRepository.findByEmail(email);
+        if (oCliente == null) {
+            throw new ObjectNotFoundException(
+                    "Objeto não encontrado! Id: " + user.getId() + ", Tipo: " + Cliente.class.getName());
+        }
+
+        return oCliente;
     }
 
     public Page<Cliente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
@@ -129,6 +147,9 @@ public class ClienteService {
         }
 
         BufferedImage jpgImage = imageService.getJpgImageFile(multipartFile);
+        jpgImage = imageService.cropSquare(jpgImage);
+        jpgImage = imageService.resize(jpgImage, size);
+
         String fileName = prefix + oUser.getId() + ".jpg";
         InputStream is = imageService.getInputStream(jpgImage, "jpg");
 
